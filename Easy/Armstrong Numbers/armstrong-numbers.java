@@ -22,12 +22,11 @@ class GFG {
 class Solution {
     static String armstrongNumber(int n) {
         // code here
-        String s = new String(n+"");
-        int len = s.length();
         int ans = 0;
-        for(int i=0;i<len;i++){
-            int x = s.charAt(i) - '0';
-            ans += Math.pow(x,3);
+        int y = n;
+        while(y>0){
+            ans += Math.pow(y%10,3);
+            y/=10;
         }
         if(ans == n){
             return "true";
