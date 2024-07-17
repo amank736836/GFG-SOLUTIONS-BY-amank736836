@@ -46,7 +46,7 @@ class DisjointSet{
         for(int i=0;i<=n;i++){
             rank.add(0);
             parent.add(i);
-            size.add(i);
+            size.add(1);
         }
     }
     
@@ -122,7 +122,7 @@ class Solution {
             }
             
             result += ele[2];
-            djs.unionByRank(ele[0],ele[1]);
+            djs.unionBySize(ele[0],ele[1]);
         }
         
         return result;
