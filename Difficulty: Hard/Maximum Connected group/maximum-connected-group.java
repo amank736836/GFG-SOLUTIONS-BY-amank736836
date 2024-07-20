@@ -35,12 +35,11 @@ class Solution {
         int id = 2;
         for(int i=0;i<n;i++){
             for(int j=0;j<n;j++){
-                if(grid[i][j] != 1){
-                    continue;
+                if(grid[i][j] == 1){
+                    int count = dfs(grid,i,j,id);
+                    compToCount.put(id,count);
+                    id++;
                 }
-                int count = dfs(grid,i,j,id);
-                compToCount.put(id,count);
-                id++;
             }
         }
         
@@ -49,21 +48,20 @@ class Solution {
         
         for(int i=0;i<n;i++){
             for(int j=0;j<n;j++){
-                if(grid[i][j] != 0){
-                    continue;
-                }
-                int cnt = 1;
-                for(int dir[] : directions){
-                    int r = dir[0] + i;
-                    int c = dir[1] + j;
-                    if(checkBounds(r,c,n) && grid[r][c] != 0 && set.add(grid[r][c])){
-                        cnt += compToCount.get(grid[r][c]); 
+                if(grid[i][j] == 0){
+                    int cnt = 1;
+                    for(int dir[] : directions){
+                        int r = dir[0] + i;
+                        int c = dir[1] + j;
+                        if(checkBounds(r,c,n) && grid[r][c] != 0 && set.add(grid[r][c])){
+                            cnt += compToCount.get(grid[r][c]); 
+                        }
                     }
+                    if(cnt > maxCnt){
+                        maxCnt = cnt;
+                    }
+                    set.clear();
                 }
-                if(cnt > maxCnt){
-                    maxCnt = cnt;
-                }
-                set.clear();
             }
         }
         
