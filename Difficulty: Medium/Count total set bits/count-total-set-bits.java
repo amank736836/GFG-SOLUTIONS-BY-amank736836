@@ -16,16 +16,27 @@ class Solution{
     public static int countSetBits(int n){
     
         // Your code here
-        int count  = 0;
-        for(int i=0;i<31;i++){
-            int fullCycle = (n+1) / (1 << (i+1));
-            int remainder = (n+1) % (1 << (i+1));
-            count += fullCycle * (1 << i) + Math.max(0 , remainder - (1 << i));
+        if(n == 0){
+            return 0;
         }
-        return count;
+        int x = largestPowerOf2InRange(n);
+        int bTill2X = x * (1 << (x-1));
+        int msb2xTon = n - (1 << x) + 1;
+        int rest = n - (1 << x);
+        int ans = bTill2X + msb2xTon + countSetBits(rest);
+        return ans;
         
     }
+    
+    public static int largestPowerOf2InRange(int n){
+        int x = 0;
+        while(n >= (1 << x)){
+            x++;
+        }
+        return x - 1;
+    }
 }
+
 
 //{ Driver Code Starts.
 
