@@ -32,13 +32,15 @@ class Solution {
     // You must implement this function
     static void sieve() {
     }
-    static boolean []primes;
+    static int []primes;
     static void sieve(int n){
-        primes = new boolean[n+1];
+        primes = new int[n+1];
         for(int i = 2;i*i<=n;i++){
-            if(!primes[i]){
+            if(primes[i] == 0){
                 for(int j = i * i;j<=n;j+=i){
-                    primes[j] = true;
+                    if(primes[j] == 0){
+                        primes[j] = i;
+                    }
                 }
             }
         }
@@ -48,17 +50,14 @@ class Solution {
         // code here
         sieve(N);
         List<Integer> ans = new ArrayList<>();
-        int i = 2;
-        while(i <= N){
-            if(N % i == 0 && !primes[i]){
-                while(N % i == 0){
-                    ans.add(i);
-                    N /= i;
-                }
+        while(N > 1){
+            if(primes[N] == 0){
+                ans.add(N);
+                N = 1;
             }else{
-                i++;
+                ans.add(primes[N]);
+                N /= primes[N];
             }
-            
         }
         return ans;
     }
