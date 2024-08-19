@@ -24,13 +24,18 @@ this function*/
 class Solution {
     long floorSqrt(long n) {
         // Your code here
-        if(n == 1){
-            return 1;
+        long start = 1;
+        long end = n;
+        
+        while(start <= end){
+            long mid = start + (end - start) / 2;
+            if(mid <= n / mid){
+                start = mid + 1;
+            }else{
+                end = mid - 1;
+            }
         }
-        long ans = 0;
-        for(int i=1;i*i<=n;i++){
-            ans++;
-        }
-        return ans;
+        
+        return end;
     }
 }
